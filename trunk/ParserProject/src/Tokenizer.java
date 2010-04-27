@@ -112,13 +112,14 @@ public class Tokenizer {
 		}
 		
 		// Write out the tokens into a file
+		ArrayList<String> tokenListClone = (ArrayList<String>) tokenList.clone();
 		try {
 			writeFile(tokenList);
 		}
 		catch (IOException e) {
 			System.out.println("Error in writing the tokenized output.");
 		}
-		return tokenList;
+		return tokenListClone;
 	}
 
 	private void writeFile(ArrayList<String> tokenList) throws IOException {

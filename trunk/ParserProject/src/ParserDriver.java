@@ -63,6 +63,66 @@ public class ParserDriver {
 	}
 	
 	private static void parse(Table table, ArrayList<String> tokenList) throws SemanticErrorException {
+		Stack<String> stack = new Stack<String>();
+		String token;
 		
+		stack.push("$");
+		stack.push(table.nonterminals.get(0));
+		
+		while (!stack.isEmpty()) {
+			token = tokenList.remove(0);
+			if (stack.peek().equals("$"))
+				return; // Successful parse
+			if (table.terminals.contains(stack.peek())) {
+				// Our stack contains a terminal
+				if (stack.peek().equals(token)) {
+					stack.pop();
+					continue;
+				}
+				else {
+					// Error
+					String msg = "[";
+					while (!stack.isEmpty()) {
+						msg += stack.pop() + ", ";
+					}
+					msg += "]";
+					throw new SemanticErrorException(msg);
+				}
+			}
+			if (table.nonterminals.contains(stack.peek()) && table.entrees[table.nonterminals.indexOf(stack.peek())][table.terminals.indexOf(token)].leftEquals(stack.peek())) {
+				String rule = table.entrees[table.nonterminals.indexOf(stack.peek())][table.terminals.indexOf(token)].getRightSide();
+				Scanner scan = new Scanner(rule);
+				String reversedRule;
+				
+				// Pop off the stack and add the new rule in the reverse
+				stack.pop();
+				reversedRule = reverse(scan);
+				scan = new Scanner(reversedRule);
+				while (scan.hasNext()) {
+					stack.push(scan.next());
+				}
+				continue;
+			}
+			// Error
+			String msg = "[";
+			while (!stack.isEmpty()) {
+				msg += stack.pop() + ", ";
+			}
+			msg += "]";
+			throw new SemanticErrorException(msg);
+		}
+	}
+
+	private static String reverse(Scanner scan) {
+		String str = "";
+		Stack<String> tempStack = new Stack<String>();
+		
+		while (scan.hasNext()) {
+			tempStack.push(scan.next());
+		}
+		while (!tempStack.isEmpty()) {
+			str += tempStack.pop();
+		}
+		return str;
 	}
 }

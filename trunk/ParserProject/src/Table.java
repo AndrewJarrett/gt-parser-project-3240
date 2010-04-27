@@ -3,9 +3,9 @@ import java.util.StringTokenizer;
 
 public class Table {
 	
-	private ArrayList<String> terminals;
-	private ArrayList<String> nonterminals;
-	private Grammar[][] entrees;
+	public ArrayList<String> terminals;
+	public ArrayList<String> nonterminals;
+	public Grammar[][] entrees;
 	
 	public Table(ArrayList<Grammar> grammar, FirstSet first, FollowSet follow) {
 		terminals = new ArrayList<String>();
@@ -31,6 +31,7 @@ public class Table {
 		terminals.add("$");
 		
 		entrees = new Grammar[terminals.size()][nonterminals.size()];
+		
 		// Create the parser table
 		for(int i = 0; i < first.getTerminals().size(); i++) {
 			StringTokenizer token = new StringTokenizer(first.getTerminals().get(i));
@@ -54,14 +55,16 @@ public class Table {
 	
 	public void setEntree(String terminal, String nonterminal, Grammar value) {
 		int i, j;
-		for(i = 0; i < terminals.size(); i++)
+		for(i = 0; i < terminals.size(); i++) {
 			if(terminal.equals(terminals.get(i)))
 				break;
-		for(j = 0; j < nonterminals.size(); j++)
-			if(nonterminal.equals(nonterminals.get(j)))
-				break;
-		if(i < terminals.size() && j < nonterminals.size())
-			entrees[i][j] = value;
+			for(j = 0; j < nonterminals.size(); j++) {
+				if(nonterminal.equals(nonterminals.get(j)))
+					break;
+				if(i < terminals.size() && j < nonterminals.size())
+					entrees[i][j] = value;
+			}
+		}
 	}
 	
 	public String toString() {

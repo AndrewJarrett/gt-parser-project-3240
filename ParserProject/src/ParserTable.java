@@ -94,13 +94,14 @@ public class ParserTable {
 	/*
 	 * Creates the LL(1) parsing table.
 	 */
-	public ArrayList<String> createTable() {
+	public Table createTable() {
 		if(grammars.isEmpty())
 			return null;
 		
 		FirstSet first = createFirst();
-
-		return new ArrayList();
+		FollowSet follow = createFollow(first);
+		Table t = new Table(grammars, first, follow);
+		return t;
 	}
 	
 	/*
@@ -159,17 +160,21 @@ public class ParserTable {
 		
 	}
 	
+	public static void testTable() {
+		ArrayList<Grammar> glist = new ArrayList<Grammar>();
+		glist.add(new Grammar("statement", "if-stmt | other"));			// This is an example from the book (Louden page 177) 
+		glist.add(new Grammar("if-stmt", "if ( exp ) statement else-part"));
+		glist.add(new Grammar("else-part", "else statement | e"));
+		glist.add(new Grammar("exp", "0 | 1"));
+		ParserTable p = new ParserTable(glist);
+		Table t = p.createTable();
+		System.out.println(t);
+	}
+	
 	public static void main(String[] args) {
 		//testExpand();						// Uncomment to test cases above
 		//testFirstForward();
 		//testEmpty();
-		ArrayList<Grammar> glist = new ArrayList<Grammar>();
-		glist.add(new Grammar("exp", "exp addop term | term"));
-		glist.add(new Grammar("addop", "+ | -"));
-		glist.add(new Grammar("term", "term mulop factor | factor"));
-		glist.add(new Grammar("mulop", "*"));
-		glist.add(new Grammar("factor", "( exp ) | number"));
-		ParserTable p = new ParserTable(glist);
-		p.createTable();
+		testTable();
 	}
 }

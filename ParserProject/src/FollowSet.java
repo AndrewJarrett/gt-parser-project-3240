@@ -27,6 +27,16 @@ public class FollowSet {
 		terminals.set(0, "$");
 	}
 	
+	private static boolean contains(String grammar, String str) {
+		StringTokenizer st = new StringTokenizer(grammar);
+		while(st.hasMoreTokens()) {
+			String next = st.nextToken();
+			if(next.equals(str))
+				return true;
+		}
+		return false;
+	}
+	
 	/*
 	 * Adds the terminal to the label (if it does not already exist)
 	 * If the terminal already exists in the labels set, return 0 for
@@ -37,7 +47,7 @@ public class FollowSet {
 			return 0;
 		for(int i = 0; i < labels.size(); i++) {
 			if(labels.get(i).equals(label)) {
-				if(!terminals.get(i).contains(terminal)) {
+				if(!contains(terminals.get(i),terminal)) {
 					terminals.set(i, terminals.get(i).concat(" " + terminal).trim());
 					return 1;
 				}

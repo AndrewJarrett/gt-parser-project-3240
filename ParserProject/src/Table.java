@@ -40,7 +40,7 @@ public class Table {
 				if(a != null)
 					setEntree(next, first.getLabels().get(i), a);
 			}
-			if(first.containsE(i)) {
+			if(first.containsE(i)) {							// There is a bug here somewhere that does not let the e symbol be placed in the parser table
 				StringTokenizer tok = new StringTokenizer(follow.findFollow(first.getLabels().get(i)));
 				while(tok.hasMoreTokens()) {
 					String str = tok.nextToken();

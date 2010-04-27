@@ -33,6 +33,8 @@ public class FollowSet {
 	 * no change. Else, add the terminal and return 1 for a change.
 	 */
 	public int addTerminal(String label, String terminal) {
+		if(terminal.equals("e"))
+			return 0;
 		for(int i = 0; i < labels.size(); i++) {
 			if(labels.get(i).equals(label)) {
 				if(!terminals.get(i).contains(terminal)) {

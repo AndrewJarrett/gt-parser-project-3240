@@ -53,7 +53,7 @@ public class Reviser {
 				}
 				String[] line1s = line1.split(" ");
 				String[] line2s = line2.split(" ");
-				if(line1s[0].equalsIgnoreCase(line2s[0])) {
+				if(line1s[0].equalsIgnoreCase(line2s[0]) && !(line1s[0].equalsIgnoreCase("%"))) {
 					String line2e = "";
 					for(int j = 2; j < line2s.length; j++) {
 						line2e += line2s[j] + " ";

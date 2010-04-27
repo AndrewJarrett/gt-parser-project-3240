@@ -3,6 +3,7 @@
 public class SyntaxErrorException extends Exception {
 	
 	private static final long serialVersionUID = 1L;
+	public String token;
 
 	public SyntaxErrorException() {
 		super();
@@ -10,6 +11,7 @@ public class SyntaxErrorException extends Exception {
 	
 	public SyntaxErrorException(String msg) {
 		super(msg);
+		token = msg;
 	}
 	
 	public SyntaxErrorException(String msg, Throwable t) {

@@ -153,6 +153,35 @@ public class Reviser {
 		
 	}
 	
+	public ArrayList<Grammar> convertToGrammar() {
+		ArrayList<Grammar> grammarArray = new ArrayList<Grammar>();
+		Scanner scan;
+		String leftSide;
+		String rightSide;
+		Grammar g;
+		
+		
+		
+		for (String rule : output) {
+			if (!rule.startsWith("%"))
+				scan = new Scanner(rule);
+			else
+				continue;
+			leftSide = "";
+			leftSide = scan.next();
+			rightSide = "";
+			scan.next(); // Pass the 
+			while (scan.hasNext()) {
+				rightSide += scan.next() + " ";
+			}
+			rightSide.trim();
+			g = new Grammar(leftSide, rightSide);
+			grammarArray.add(g);
+		}
+		
+		return grammarArray;
+	}
+	
 	public static void main(String[] args) {
 		File grammar = new File("Grammar.txt");
 		Reviser test = new Reviser(grammar);

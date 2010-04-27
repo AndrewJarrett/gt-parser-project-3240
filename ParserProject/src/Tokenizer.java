@@ -34,7 +34,7 @@ public class Tokenizer {
 		tokenList = new ArrayList<String>();
 	}
 
-	public void tokenize() throws SyntaxErrorException {
+	public ArrayList<String> tokenize() throws SyntaxErrorException {
 		// Tokenize the input file into an array of tokens (in the order they were read)
 		while (scan.hasNext()) {
 			token = scan.next();
@@ -108,7 +108,7 @@ public class Tokenizer {
 			}
 			
 			// If we get to this point, then we have a syntax error!
-			throw new SyntaxErrorException();
+			throw new SyntaxErrorException(token);
 		}
 		
 		// Write out the tokens into a file
@@ -118,6 +118,7 @@ public class Tokenizer {
 		catch (IOException e) {
 			System.out.println("Error in writing the tokenized output.");
 		}
+		return tokenList;
 	}
 
 	private void writeFile(ArrayList<String> tokenList) throws IOException {

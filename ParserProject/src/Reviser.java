@@ -9,20 +9,31 @@ public class Reviser {
 	private ArrayList<String> output;
 	
 	public Reviser(File in) {
-		grammar = in;
+		this.grammar = in;
+		this.output = new ArrayList<String>();
 		try {
 			scan = new Scanner(grammar);
-		} catch(Exception FileNotFoundException) {
-			System.out.println("File doesn't exist");
-			return;
+			while(scan.hasNext()) {
+				output.add(scan.nextLine());
+			}
+		} catch(FileNotFoundException e) {
+			e.printStackTrace();
 		}
 	}
 	
 	public ArrayList<String> execute() {
-		output = new ArrayList<String>();
-		while(scan.hasNext()) {
-			output.add(scan.nextLine());
+		int i = 0;
+		while(i < output.size()) {
+			String current_line = output.get(i);
+			String[] tokens = current_line.split(" ");
+			System.out.println(tokens[0]);
 		}
 		return output;
+	}
+	
+	public void main(String[] args) {
+		File grammar = new File("Grammar.txt");
+		Reviser test = new Reviser(grammar);
+		test.execute();
 	}
 }

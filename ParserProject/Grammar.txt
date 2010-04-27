@@ -1,10 +1,13 @@
-<Tiny-program> : begin <statement-list> end
+%Tokens BEGIN END PRINT LEFTPAR RIGHTPAR SEMICOLON ID ASSIGN READ COMMA INTNUM PLUS MINUS MULITPLY MODULO
+%Non-terminals <Tiny-program> <statement-list> <statement> <id-list> <exp-list> <exp> <bin-op>
+%Start <Tiny-program>
+%Rules
+<Tiny-program> : BEGIN <statement-list> END
 <statement-list> : <statement-list> <statement> | <statement>
-<statement> : print ( <exp-list> ) ;
-<statement> : ID := <exp> ;
-<statement> : read ( <id-list> ) ;
-<id-list> : <id-list> , ID | ID
-<exp-list> : <exp-list> , <exp> | <exp>
-<exp> : ID | INTNUM | ( <exp> )
-<exp> : <exp> <bin-op> <exp>
-<bin-op> : + | - | * | %
+<statement> : PRINT LEFTPAR <exp-list> RIGHTPAR SEMICOLON
+<statement> : ID ASSIGN <exp> SEMICOLON
+<statement> : READ LEFTPAR <id-list> RIGHTPAR SEMICOLON
+<id-list> : <id-list> COMMA ID | ID
+<exp-list> : <exp-list> COMMA <exp> | <exp>
+<exp> : ID | INTNUM | LEFTPAR <exp> RIGHTPAR | <exp> <bin-op> <exp>
+<bin-op> : PLUS | MINUS | MULTIPLY | MODULO

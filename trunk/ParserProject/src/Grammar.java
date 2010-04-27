@@ -6,6 +6,7 @@
  */
 
 import java.util.ArrayList;
+import java.util.StringTokenizer;
 
 
 public class Grammar {
@@ -45,6 +46,23 @@ public class Grammar {
 		for(int i = 0; i < grammarList.size(); i++) {
 			if(grammarList.get(i).leftEquals(grammar))
 				return grammarList.get(i);
+		}
+		return null;
+	}
+	
+	public static Grammar findOccurance(ArrayList<Grammar> grammarList, String grammar, FirstSet first, String token) {
+		if(grammarList == null || grammar == null)
+			return null;
+		for(int i = 0; i < grammarList.size(); i++) {
+			if(grammarList.get(i).leftEquals(grammar)) {
+				if(grammarList.get(i).getRightSide().contains(token))
+					return grammarList.get(i);
+				else {
+					StringTokenizer st = new StringTokenizer(grammarList.get(i).getRightSide());
+					if(st.hasMoreTokens() && first.findFirst(st.nextToken()).contains(token))
+						return grammarList.get(i);
+				}
+			}
 		}
 		return null;
 	}

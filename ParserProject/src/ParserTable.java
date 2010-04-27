@@ -100,8 +100,8 @@ public class ParserTable {
 		
 		FirstSet first = createFirst();
 		FollowSet follow = createFollow(first);
-		System.out.println(first);
-		System.out.println(follow);
+		//System.out.println(first);
+		//System.out.println(follow);
 		Table t = new Table(grammars, first, follow);
 		return t;
 	}

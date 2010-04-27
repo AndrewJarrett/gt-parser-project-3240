@@ -110,9 +110,23 @@ public class Reviser {
 								g.add(i, _new);
 								g.add(i, _old);
 							}
-						} //else if(current_split.length == 7) {
-							
-						//}
+						} else if(current_split.length == 7) {
+							if(current_split[5].equalsIgnoreCase("|")) {
+								String newstate = "";
+								for(int l = 0; l < current_split[0].length(); l++) {
+									if(l == current_split[0].length()-2) {
+										newstate += current_split[0].charAt(l) + "'";
+									} else {
+										newstate += current_split[0].charAt(l);
+									}
+								}
+								String _old = current_split[0] + " " + current_split[1] + " " + current_split[4] + " " + newstate;
+								String _new = newstate + " " + current_split[1] + " " + current_split[3] + " " + current_split[4] + " " + newstate + " | e";
+								g.remove(i);
+								g.add(i, _new);
+								g.add(i, _old);
+							}
+						}
 					}
 				}
 			}

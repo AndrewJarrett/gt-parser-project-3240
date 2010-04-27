@@ -40,6 +40,15 @@ public class Table {
 				if(a != null)
 					setEntree(next, first.getLabels().get(i), a);
 			}
+			if(first.containsE(i)) {
+				StringTokenizer tok = new StringTokenizer(follow.findFollow(first.getLabels().get(i)));
+				while(tok.hasMoreTokens()) {
+					String str = tok.nextToken();
+					Grammar a = Grammar.findOccurance(grammar, first.getLabels().get(i), first, str);
+					if(a != null)
+						setEntree(str, first.getLabels().get(i), a);
+				}
+			}
 		}
 	}
 	

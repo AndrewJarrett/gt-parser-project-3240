@@ -73,6 +73,16 @@ public class FirstSet {
 		return terminals;
 	}
 	
+	public boolean containsE(int i) {
+		StringTokenizer st = new StringTokenizer(terminals.get(i));
+		while(st.hasMoreTokens()) {
+			String next = st.nextToken();
+			if(next.equals("e"))
+				return true;
+		}
+		return false;
+	}
+	
 	public String toString() {
 		String ret = "";
 		for(int i = 0; i < labels.size(); i++)

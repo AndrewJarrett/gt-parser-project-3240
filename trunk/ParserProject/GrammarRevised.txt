@@ -6,7 +6,9 @@
 <statement-list> : <statement> <statement-list'> | <statement>
 <statement-list'> : <statement> <statement-list'> | e
 <statement> : PRINT LEFTPAR <exp-list> RIGHTPAR SEMICOLON | ID ASSIGN <exp> SEMICOLON | READ LEFTPAR <id-list> RIGHTPAR SEMICOLON
-<id-list> : <id-list> COMMA ID | ID
-<exp-list> : <exp-list> COMMA <exp> | <exp>
+<id-list> : ID <id-list'>
+<id-list'> : COMMA ID <id-list'> | e
+<exp-list> : <exp> <exp-list'>
+<exp-list'> : COMMA <exp> <exp-list'> | e
 <exp> : ID | INTNUM | LEFTPAR <exp> RIGHTPAR | <exp> <bin-op> <exp>
 <bin-op> : PLUS | MINUS | MULTIPLY | MODULO

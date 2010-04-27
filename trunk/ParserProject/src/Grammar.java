@@ -50,16 +50,26 @@ public class Grammar {
 		return null;
 	}
 	
+	private static boolean contains(String grammar, String str) {
+		StringTokenizer st = new StringTokenizer(grammar);
+		while(st.hasMoreTokens()) {
+			String next = st.nextToken();
+			if(next.equals(str))
+				return true;
+		}
+		return false;
+	}
+	
 	public static Grammar findOccurance(ArrayList<Grammar> grammarList, String grammar, FirstSet first, String token) {
 		if(grammarList == null || grammar == null)
 			return null;
 		for(int i = 0; i < grammarList.size(); i++) {
 			if(grammarList.get(i).leftEquals(grammar)) {
-				if(grammarList.get(i).getRightSide().contains(token))
+				if(contains(grammarList.get(i).getRightSide(), token))
 					return grammarList.get(i);
 				else {
 					StringTokenizer st = new StringTokenizer(grammarList.get(i).getRightSide());
-					if(st.hasMoreTokens() && first.findFirst(st.nextToken()).contains(token))
+					if(st.hasMoreTokens() && contains(first.findFirst(st.nextToken()), token))
 						return grammarList.get(i);
 				}
 			}

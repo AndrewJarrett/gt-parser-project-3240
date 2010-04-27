@@ -82,7 +82,7 @@ public class ParserTable {
 							cont += follow.addTerminals(last, first.findFirst(next));	// Add the First set of the last symbol to the Follow set of the 2nd to last symbol (Rule 2)
 					}
 				}
-				if(first.findFirst(next).contains(" e "))
+				if(first.containsE(i))
 					cont += follow.addTerminals(last, follow.findFollow(current.getLeftSide()));
 				cont += follow.addTerminals(next, follow.findFollow(current.getLeftSide()));
 			}

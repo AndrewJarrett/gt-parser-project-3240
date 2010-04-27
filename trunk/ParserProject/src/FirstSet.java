@@ -24,6 +24,16 @@ public class FirstSet {
 		}
 	}
 	
+	private static boolean contains(String grammar, String str) {
+		StringTokenizer st = new StringTokenizer(grammar);
+		while(st.hasMoreTokens()) {
+			String next = st.nextToken();
+			if(next.equals(str))
+				return true;
+		}
+		return false;
+	}
+	
 	/*
 	 * Adds the terminal to the label (if it does not already exist)
 	 * If the terminal already exists in the labels set, return 0 for
@@ -32,7 +42,7 @@ public class FirstSet {
 	public int addTerminal(String label, String terminal) {
 		for(int i = 0; i < labels.size(); i++) {
 			if(labels.get(i).equals(label)) {
-				if(!terminals.get(i).contains(terminal)) {
+				if(!contains(terminals.get(i),terminal)) {
 					terminals.set(i, terminals.get(i).concat(" " + terminal).trim());
 					return 1;
 				}
@@ -74,6 +84,8 @@ public class FirstSet {
 	}
 	
 	public boolean containsE(int i) {
+		if(i >= terminals.size())
+			return false;
 		StringTokenizer st = new StringTokenizer(terminals.get(i));
 		while(st.hasMoreTokens()) {
 			String next = st.nextToken();

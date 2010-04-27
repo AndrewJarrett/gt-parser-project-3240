@@ -1,0 +1,5 @@
+For implementing the grammar conversion, we just looked for patterns with how the tokens
+would convert. First though was combining all of the same breakdowns into one line that
+was | between all the options. After that, it was a matter of using the patterns to convert
+lines to not having left recursion and making the new line in the grammar. This was tricky,
+but following indices around when hand writing the grammar out made it much easier.

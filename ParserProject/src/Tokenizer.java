@@ -139,8 +139,12 @@ public class Tokenizer {
 
 	private boolean isId(String str) {
 		// Check to see if this is classified as an identifier
-		
-		return true;
+		if (str.length() >= 1 && str.length() <= 10) {
+			if (str.matches("(?:(?:[_]{1}[a-zA-Z]{1}|[_]{1}[0-9]{1})|(?:[a-zA-Z]{1}))(?:[a-zA-Z]|[0-9]|(?:[_]{1}[a-zA-Z]{1}|[_]{1}[0-9]{1}))*")) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	private boolean isInt(String str) {

@@ -1,4 +1,4 @@
-<Tiny-program > : begin <statement-list> end
+<Tiny-program> : begin <statement-list> end
 <statement-list> : <statement-list> <statement> | <statement>
 <statement> : print ( <exp-list> ) ;
 <statement> : ID := <exp> ;

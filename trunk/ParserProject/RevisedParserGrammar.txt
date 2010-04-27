@@ -9,7 +9,7 @@
 <id-list> : ID <id-list'>
 <id-list'> : COMMA ID <id-list'> | e
 <exp-list> : <exp> <exp-list'>
-<exp-list'> : COMMA <exp> <exp-list1> | e
+<exp-list'> : COMMA <exp> <exp-list'> | e
 <exp> : ID | INTNUM | LEFTPAR <exp> RIGHTPAR | <exp'>
 <exp'> : <exp> <bin-op> <exp>
 <bin-op> : PLUS | MINUS | MULTIPLY | MODULO

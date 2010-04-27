@@ -7,21 +7,24 @@ import java.util.ArrayList;
 import java.util.StringTokenizer;
 
 
-public class FirstSet {
+public class FollowSet {
 	private ArrayList<String> labels;
 	private ArrayList<String> terminals;
 	
 	/*
 	 * Initializes the First Set for each nonterminals (labels).
 	 */
-	public FirstSet(ArrayList<Grammar> grammars) {
+	public FollowSet(ArrayList<Grammar> grammars) {
 		labels = new ArrayList<String>();
 		terminals = new ArrayList<String>();
 		
 		for(int i = 0; i < grammars.size(); i++) {
-			labels.add(grammars.get(i).getLeftSide());
-			terminals.add("");
+			if(findFollow(grammars.get(i).getLeftSide()) == null) {
+				labels.add(grammars.get(i).getLeftSide());
+				terminals.add("");
+			}
 		}
+		terminals.set(0, "$");
 	}
 	
 	/*
@@ -43,7 +46,7 @@ public class FirstSet {
 	}
 	
 	/*
-	 * Adds each terminal into the labels First set. Returns
+	 * Adds each terminal into the labels Follow set. Returns
 	 * 0 for no change or 1 for change.
 	 */
 	public int addTerminals(String label, String terminals) {
@@ -54,15 +57,15 @@ public class FirstSet {
 		return ret;
 	}
 	
-	public String getFirst(int index) {
+	public String getFollow(int index) {
 		return labels.get(index) + " " + terminals.get(index);
 	}
 	
-	public String findFirst(String label) {
+	public String findFollow(String label) {
 		for(int i = 0; i < labels.size(); i++)
 			if(labels.get(i).equals(label))
 				return terminals.get(i);
-		return "";
+		return null;
 	}
 	
 	public ArrayList<String> getLabels() {
@@ -76,7 +79,7 @@ public class FirstSet {
 	public String toString() {
 		String ret = "";
 		for(int i = 0; i < labels.size(); i++)
-			ret += "First(" + labels.get(i) + ") = {" + terminals.get(i) + "}\n";
+			ret += "Follow(" + labels.get(i) + ") = {" + terminals.get(i) + "}\n";
 		return ret;
 	}
 }

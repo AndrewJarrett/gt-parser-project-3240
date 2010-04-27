@@ -1,0 +1,10 @@
+<Tiny-program> : begin <statement-list> end
+<statement-list> : <statement> <statement-list1> | <statement>
+<statement-list1> : <statement> <statement-list1> | e
+<statement> : print ( <exp-list> ) ; | ID := <exp> ; | read ( <id-list> ) ;
+<id-list> : ID <id-list1>
+<id-list1> : , ID <id-list1> | e
+<exp-list> : <exp> <exp-list1>
+<exp-list1> : , <exp> <exp-list1> | e
+<exp> : ID | INTNUM | ( <exp> ) | <exp> <bin-op> <exp>
+<bin-op> : + | - | * | %

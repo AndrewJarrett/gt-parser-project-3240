@@ -3,7 +3,8 @@
 %Start <Tiny-program>
 %Rules
 <Tiny-program> : BEGIN <statement-list> END
-<statement-list> : <statement-list> <statement> | <statement>
+<statement-list> : <statement> <statement-list'> | <statement>
+<statement-list'> : <statement> <statement-list'> | e
 <statement> : PRINT LEFTPAR <exp-list> RIGHTPAR SEMICOLON | ID ASSIGN <exp> SEMICOLON | READ LEFTPAR <id-list> RIGHTPAR SEMICOLON
 <id-list> : <id-list> COMMA ID | ID
 <exp-list> : <exp-list> COMMA <exp> | <exp>

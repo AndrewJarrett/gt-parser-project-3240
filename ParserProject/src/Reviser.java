@@ -37,10 +37,6 @@ public class Reviser {
 		for(int i = 0; i < input.size(); i++) {
 			g.add(input.get(i));
 		}
-		System.out.println("**************START**************");
-		for(int i = 0; i < g.size(); i++) {
-			System.out.println(g.get(i));
-		}
 		ArrayList<String> temp = new ArrayList<String>();
 		int newsize = 0;
 		int currentsize = g.size();
@@ -73,10 +69,6 @@ public class Reviser {
 			}
 			temp.clear();
 		}
-		System.out.println("**************FIXED**************");
-		for(int i = 0; i < g.size(); i++) {
-			System.out.println(g.get(i));
-		}
 		return g;
 	}
 	
@@ -95,8 +87,32 @@ public class Reviser {
 				String token = current_split[j];
 				if(token.equals(":") || token.equals("|")) { //check for first tokens of assignments
 					String token_next = current_split[j+1];
-					if(assign.equalsIgnoreCase(token_next)) { //if the first token is the same as the assignment
-						
+					if(assign.equalsIgnoreCase(token_next)) { //if the first token is the same as the assignment--we have left recursion
+						ArrayList<Integer> ors = new ArrayList<Integer>();
+						for(int k = 0; k < current_split.length; k++) {
+							if(current_split[k].equalsIgnoreCase("|")) {
+								ors.add(k);
+							}
+						}
+						if(current_split.length == 6){
+							if(current_split[4].equalsIgnoreCase("|")) {
+								String newstate = "";
+								for(int l = 0; l < current_split[0].length(); l++) {
+									if(l == current_split[0].length()-2) {
+										newstate += current_split[0].charAt(l) + "'";
+									} else {
+										newstate += current_split[0].charAt(l);
+									}
+								}
+								String _old = current_split[0] + " " + current_split[1] + " " + current_split[3] + " " + newstate + " | " + current_split[3];
+								String _new = newstate + " " + current_split[1] + " " + current_split[3] + " " + newstate + " | e";
+								g.remove(i);
+								g.add(i, _new);
+								g.add(i, _old);
+							}
+						} //else if(current_split.length == 7) {
+							
+						//}
 					}
 				}
 			}

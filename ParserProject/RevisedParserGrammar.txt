@@ -3,12 +3,13 @@
 %Start <Tiny-program>
 %Rules
 <Tiny-program> : BEGIN <statement-list> END
-<statement-list> : <statement> <statement-list1> | <statement>
-<statement-list1> : <statement> <statement-list1> | e
+<statement-list> : <statement> <statement-list'> | <statement>
+<statement-list'> : <statement> <statement-list'> | e
 <statement> : PRINT LEFTPAR <exp-list> RIGHTPAR SEMICOLON | ID ASSIGN <exp> SEMICOLON | READ LEFTPAR <id-list> RIGHTPAR SEMICOLON
-<id-list> : ID <id-list1>
-<id-list1> : COMMA ID <id-list1> | e
-<exp-list> : <exp> <exp-list1>
-<exp-list1> : COMMA <exp> <exp-list1> | e
-<exp> : ID | INTNUM | LEFTPAR <exp> RIGHTPAR | <exp> <bin-op> <exp>
+<id-list> : ID <id-list'>
+<id-list'> : COMMA ID <id-list'> | e
+<exp-list> : <exp> <exp-list'>
+<exp-list'> : COMMA <exp> <exp-list1> | e
+<exp> : ID | INTNUM | LEFTPAR <exp> RIGHTPAR | <exp'>
+<exp'> : <exp> <bin-op> <exp>
 <bin-op> : PLUS | MINUS | MULTIPLY | MODULO

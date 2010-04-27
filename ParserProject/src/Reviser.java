@@ -22,19 +22,34 @@ public class Reviser {
 	}
 	
 	public ArrayList<String> execute() {
+		output = combine(output);
+		output = factor(output);
+		write(output, "GrammarRevised.txt");
+		return output;
+	}
+	/**
+	 * Combines common rules into one rule with | separation
+	 * @param grammar
+	 * @return
+	 */
+	private ArrayList<String> combine(ArrayList<String> input) {
+		ArrayList<String> g = new ArrayList<String>();
+		for(int i = 0; i < input.size(); i++) {
+			g.add(input.get(i));
+		}
 		System.out.println("**************START**************");
-		for(int i = 0; i < output.size(); i++) {
-			System.out.println(output.get(i));
+		for(int i = 0; i < g.size(); i++) {
+			System.out.println(g.get(i));
 		}
 		ArrayList<String> temp = new ArrayList<String>();
 		int newsize = 0;
-		int currentsize = output.size();
+		int currentsize = g.size();
 		while(newsize < currentsize) {
-			for(int i = 0; i < output.size(); i++) {
-				String line1 = output.get(i);
+			for(int i = 0; i < g.size(); i++) {
+				String line1 = g.get(i);
 				String line2 = "junk";
-				if(i < output.size() - 1) {
-					line2 = output.get(i+1);
+				if(i < g.size() - 1) {
+					line2 = g.get(i+1);
 				}
 				String[] line1s = line1.split(" ");
 				String[] line2s = line2.split(" ");
@@ -50,32 +65,62 @@ public class Reviser {
 				temp.add(line1);
 			}
 			newsize = temp.size();
-			currentsize = output.size();
+			currentsize = g.size();
 
-			output.clear();
+			g.clear();
 			for(int i = 0; i < temp.size(); i++) {
-				output.add(temp.get(i).trim());
+				g.add(temp.get(i).trim());
 			}
 			temp.clear();
 		}
-		/*while(i < output.size()) {
-			String current_line = output.get(i);
-			System.out.println(current_line);
-			String[] tokens = current_line.split(" ");
-			for(int j = 0; j < tokens.length; j++) {
-				if(j == 0) {
-					System.out.println(tokens[j]);
-				} else {
-					System.out.println("\t" + tokens[j]);
+		System.out.println("**************FIXED**************");
+		for(int i = 0; i < g.size(); i++) {
+			System.out.println(g.get(i));
+		}
+		return g;
+	}
+	
+	private ArrayList<String> factor(ArrayList<String> input) {
+		ArrayList<String> g = new ArrayList<String>();
+		for(int i = 0; i < input.size(); i++) {
+			g.add(input.get(i));
+		}
+		
+		String current = "";
+		for(int i = 0; i < g.size(); i++) {
+			current = g.get(i);
+			String[] current_split = current.split(" ");
+			String assign = current_split[0];
+			for(int j = 1; j < current_split.length; j++) {
+				String token = current_split[j];
+				if(token.equals(":") || token.equals("|")) { //check for first tokens of assignments
+					String token_next = current_split[j+1];
+					if(assign.equalsIgnoreCase(token_next)) { //if the first token is the same as the assignment
+						
+					}
 				}
 			}
-			i++;
-		}*/
-		System.out.println("**************FIXED**************");
-		for(int i = 0; i < output.size(); i++) {
-			System.out.println(output.get(i));
 		}
-		return output;
+		
+		
+		return g;
+	}
+	
+	private void write(ArrayList<String> towrite, String name) {
+		FileWriter writer;
+		try {
+			writer = new FileWriter(name);
+			String write = "";
+			for(int i = 0; i < towrite.size(); i++) {
+				write += towrite.get(i) + "\n";
+			}
+			write.trim();
+			writer.write(write);
+			writer.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
 	}
 	
 	public static void main(String[] args) {

@@ -1,4 +1,0 @@
-We worked out the Grammar given in the document with help from the textbook to remove left 
-recursion. We came up with a standardized way to represent stages. It was relatively trivial
-to remove most of the left recursion, The trickiest one is the x -> x op x, but with not
-needing to worry about cyclic recursion so it became simple.

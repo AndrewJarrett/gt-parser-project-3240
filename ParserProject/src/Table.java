@@ -7,6 +7,10 @@ public class Table {
 	public ArrayList<String> nonterminals;
 	public Grammar[][] entrees;
 	
+	public Table(ArrayList<Grammar> grammar, ArrayList<FirstSet> firstSets, ArrayList<FollowSet> followSets) {
+		
+	}
+	
 	public Table(ArrayList<Grammar> grammar, FirstSet first, FollowSet follow) {
 		terminals = new ArrayList<String>();
 		nonterminals = new ArrayList<String>();

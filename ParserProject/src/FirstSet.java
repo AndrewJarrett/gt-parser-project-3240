@@ -1,15 +1,26 @@
-/*
- * Implementation of a Follow Set.
+/**
+ * Implementation of the FirstSet(A), where A is a non-terminal (and is called the label). 
+ * The FirstSet class also has an ArrayList for the terminals that belong in this 
+ * FirstSet(A). 
  * 
  */
 
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 
-
 public class FirstSet {
 	private ArrayList<String> labels;
 	private ArrayList<String> terminals;
+	private String label;
+	
+	/**
+	 * Construct for a FirstSet(A), where A is the label.
+	 * 
+	 * @param label	Non-terminal for which this FirstSet is created
+	 */
+	public FirstSet(String label) {
+	  this.label = label;
+	}
 	
 	/*
 	 * Initializes the First Set for each nonterminals (labels).
@@ -78,11 +89,7 @@ public class FirstSet {
 	public ArrayList<String> getLabels() {
 		return labels;
 	}
-	
-	public ArrayList<String> getTerminals() {
-		return terminals;
-	}
-	
+		
 	public boolean containsE(int i) {
 		if(i >= terminals.size())
 			return false;
@@ -95,6 +102,47 @@ public class FirstSet {
 		return false;
 	}
 	
+	/**
+	 * Sets the label for this FirstSet (which is the non-terminal that it is built upon).
+	 * 
+	 * @param label	The non-terminal that this FirstSet is built upon.
+	 */
+	public void setLabel(String label) {
+		this.label = label;
+	}
+	
+	/**
+	 * Sets the list of terminals associated with this FirstSet.
+	 * 
+	 * @param terminals	An ArrayList of the terminals associated with this FirstSet.
+	 */
+	public void setTerminals(ArrayList<String> terminals) {
+		this.terminals = terminals;
+	}
+	
+	/**
+	 * Gets the label for this FirstSet.
+	 * 
+	 * @return	A String representation of the non-terminal (the label).
+	 */
+	public String getLabel() {
+		return label;
+	}
+	
+	/**
+	 * Gets the terminals that are associated with this FirstSet.
+	 * 
+	 * @return	An ArrayList of the terminals associated with this FirstSet.
+	 */
+	public ArrayList<String> getTerminals() {
+		return terminals;
+	}
+	
+	/**
+	 * Creates a String representation of the entire FirstSet in case it needs to be printed.
+	 * 
+	 * @return	A String representation of the FirstSet.
+	 */
 	public String toString() {
 		String ret = "";
 		for(int i = 0; i < labels.size(); i++)

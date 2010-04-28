@@ -33,8 +33,9 @@ public class ParserTable {
 	/*
 	 * Creates the First set for the grammar.
 	 */
-	public FirstSet createFirst() {
-		FirstSet first = new FirstSet(grammars);				// Initilize the First set so that all Nonterminals are of the form: First(S) = {}
+	public ArrayList<FirstSet> createFirst() {
+		ArrayList<FirstSet> firstSets = new ArrayList<FirstSet>(); // We are keeping a list of the First sets of *all* of the Nonterminals
+		FirstSet first = new FirstSet(grammars);				// Initialize the First set so that all Nonterminals are of the form: First(S) = {}
 		expandGrammar();										// Expand the grammar
 		int cont;												// Holds whether a change took place
 		
@@ -53,7 +54,7 @@ public class ParserTable {
 			}
 
 		} while(cont != 0);										// If nothing was update, do now continue and return the First set.
-		return first;
+		return firstSets;
 	}
 	
 	/*
@@ -61,8 +62,10 @@ public class ParserTable {
 	 * You must run createFirst on the grammar in order to get the
 	 * first set to use for the Follow set.
 	 */
-	public FollowSet createFollow(FirstSet first) {
-		FollowSet follow = new FollowSet(grammars);				// Initilize the Follow set so that all Nonterminals are of the form: First(X) = {} and the start symbol to First(S) = {$}
+	public ArrayList<FollowSet> createFollow(ArrayList<FirstSet> firstSets) {
+		FirstSet first = firstSets.get(0);
+		ArrayList<FollowSet> followSets = new ArrayList<FollowSet>();
+		FollowSet follow = new FollowSet(grammars);				// Initialize the Follow set so that all Nonterminals are of the form: First(X) = {} and the start symbol to First(S) = {$}
 		int cont;												// Holds whether a change took place
 		
 		do {
@@ -88,7 +91,7 @@ public class ParserTable {
 			}
 
 		} while(cont != 0);										// If nothing was update, do now continue and return the First set.
-		return follow;
+		return followSets;
 	}
 	
 	/*
@@ -98,11 +101,11 @@ public class ParserTable {
 		if(grammars.isEmpty())
 			return null;
 		
-		FirstSet first = createFirst();
-		FollowSet follow = createFollow(first);
+		ArrayList<FirstSet> firstSets = createFirst();
+		ArrayList<FollowSet> followSets = createFollow(firstSets);
 		//System.out.println(first);
 		//System.out.println(follow);
-		Table t = new Table(grammars, first, follow);
+		Table t = new Table(grammars, firstSets, followSets);
 		return t;
 	}
 	
@@ -138,9 +141,9 @@ public class ParserTable {
 		glist.add(new Grammar("mulop", "*"));
 		glist.add(new Grammar("factor", "( exp ) | number"));
 		ParserTable p = new ParserTable(glist);
-		FirstSet f = p.createFirst();
+		ArrayList<FirstSet> f = p.createFirst();
 		System.out.println(f);
-		FollowSet fol = p.createFollow(f);
+		ArrayList<FollowSet> fol = p.createFollow(f);
 		System.out.println(fol);
 		
 	}
@@ -155,9 +158,9 @@ public class ParserTable {
 		glist.add(new Grammar("else-part", "else statement | e"));
 		glist.add(new Grammar("exp", "0 | 1"));
 		ParserTable p = new ParserTable(glist);
-		FirstSet f = p.createFirst();
+		ArrayList<FirstSet> f = p.createFirst();
 		System.out.println(f);
-		FollowSet fol = p.createFollow(f);
+		ArrayList<FollowSet> fol = p.createFollow(f);
 		System.out.println(fol);
 		
 	}
